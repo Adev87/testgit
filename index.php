@@ -1,10 +1,16 @@
-$servername = "localhost";
+
+      $servername = "localhost";
       $username = "root";
-      //$password = "W0rld3xp0@dm1n";
-      $password = "";
+      $password = "W0rld3xp0@dm1n";
+      //$password = "";
       
      $mysqli = new mysqli($servername,$username,$password,"Electronics");
     get_list_devices($mysqli);
+ 
+      
+
+
+      
     $mysqli->close();
   function get_list_devices($conn)
   {
@@ -17,7 +23,7 @@ $servername = "localhost";
      $devices = json_decode($server_output);
      foreach ($devices as $dv)
      {
-         insert_after_check_mac_last_update($dv);
+         insert_after_check_mac_last_update($conn,$dv);
      }
      curl_close ($ch);
   }
@@ -36,14 +42,14 @@ $servername = "localhost";
      $devices = json_decode($server_output);
      foreach ($devices["data"] as $dv)
      {
-       insert_after_check_mac_last_update($dv);
+       insert_after_check_mac_last_update($conn,$dv);
       
      }
     curl_close ($ch);
   }
-  function insert_after_check_mac_last_update($dv)
+  function insert_after_check_mac_last_update($conn,$dv)
   {
-    $sql = "selct * from electronics where address='".$dv->address."' and lastUpdated='."$dv->lastUpdated".'";
+    $sql = "selct * from electronics where address='".$dv->address."' and lastUpdated='.".$dv->lastUpdated.".'";
     $sql = "INSERT INTO electronics (address, current, watts,temperature,devicename,devicenickname,lastUpdated)
     VALUES ('".$dv->address."', '"
     .$dv->current."', '"
@@ -59,3 +65,4 @@ $servername = "localhost";
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
   }
+  
