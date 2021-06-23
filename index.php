@@ -1,0 +1,61 @@
+$servername = "localhost";
+      $username = "root";
+      //$password = "W0rld3xp0@dm1n";
+      $password = "";
+      
+     $mysqli = new mysqli($servername,$username,$password,"Electronics");
+    get_list_devices($mysqli);
+    $mysqli->close();
+  function get_list_devices($conn)
+  {
+    $ch = curl_init();
+
+     curl_setopt($ch, CURLOPT_URL,"http://localhost:3300/2.php");
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     
+     $server_output = curl_exec($ch);
+     $devices = json_decode($server_output);
+     foreach ($devices as $dv)
+     {
+         insert_after_check_mac_last_update($dv);
+     }
+     curl_close ($ch);
+  }
+  function get_historical_data($mac,$date)
+  {
+      
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL,"http://localhost:3300/3.php");
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS,
+                "macaddress=$mac&date=$date");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec($ch);
+     $devices = json_decode($server_output);
+     foreach ($devices["data"] as $dv)
+     {
+       insert_after_check_mac_last_update($dv);
+      
+     }
+    curl_close ($ch);
+  }
+  function insert_after_check_mac_last_update($dv)
+  {
+    $sql = "selct * from electronics where address='".$dv->address."' and lastUpdated='."$dv->lastUpdated".'";
+    $sql = "INSERT INTO electronics (address, current, watts,temperature,devicename,devicenickname,lastUpdated)
+    VALUES ('".$dv->address."', '"
+    .$dv->current."', '"
+    .$dv->watts."', '"
+    .$dv->temperature."', '"
+    .$dv->devicename."', '"
+    .$dv->devicenickname."', '"
+    .$dv->lastUpdated."')";
+    
+    if ($conn->query($sql) === TRUE) {
+      echo "New record created successfully";
+    } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+  }
