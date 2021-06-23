@@ -24,11 +24,12 @@
      $devices = json_decode($server_output);
      foreach ($devices as $dv)
      {
+         echo var_dump($dv);
          insert_after_check_mac_last_update($conn,$dv);
      }
      curl_close ($ch);
   }
-  function get_historical_data($mac,$date)
+  function get_historical_data($conn,$mac,$date)
   {
       
     $ch = curl_init();
