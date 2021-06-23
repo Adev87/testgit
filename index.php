@@ -15,8 +15,9 @@
   function get_list_devices($conn)
   {
     $ch = curl_init();
+    
 
-     curl_setopt($ch, CURLOPT_URL,"http://localhost:3300/2.php");
+     curl_setopt($ch, CURLOPT_URL,"http://3egreenserverapi.ddns.net:9001/api/data/clamp/device/SG%20HDB-1/list");
      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      
      $server_output = curl_exec($ch);
@@ -32,7 +33,7 @@
       
     $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_URL,"http://localhost:3300/3.php");
+    curl_setopt($ch, CURLOPT_URL,"http://3egreenserverapi.ddns.net:9001/api/data/clamp/device/historical");
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS,
                 "macaddress=$mac&date=$date");
