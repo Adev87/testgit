@@ -1,7 +1,7 @@
       $servername = "localhost";
       $username = "root";
-      //$password = "W0rld3xp0@dm1n";
-      $password = "";
+      $password = "W0rld3xp0@dm1n";
+      //$password = "";
       
      $mysqli = new mysqli($servername,$username,$password,"Electronics");
       get_list_devices($mysqli);
