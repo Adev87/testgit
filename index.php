@@ -4,7 +4,7 @@ $servername = "localhost";
       //$password = "";
       
      $mysqli = new mysqli($servername,$username,$password);
-     // get_list_devices($mysqli);
+      get_list_devices($mysqli);
      
      $mysqli->close();
     
@@ -106,9 +106,39 @@ $servername = "localhost";
     } else {
   
     }
-    
-    $sql = "INSERT INTO device_history (device_id, current, watts,temperature,time)
+    $locX=0;
+    $locY=0;
+    $locZ=0;
+
+    if ($dv->device_id =="1")
+        {
+          $locX=11;
+    $locY=11;
+    $locZ=11;
+        }
+        if ($dv->device_id =="2")
+        {
+          $locX=22;
+    $locY=22;
+    $locZ=22;
+        }
+        if ($dv->device_id =="3")
+        {
+          $locX=33;
+    $locY=33;
+    $locZ=33;
+        }
+        if ($dv->device_id =="4")
+        {
+          $locX=44;
+    $locY=44;
+    $locZ=44;
+        }
+    $sql = "INSERT INTO device_history (device_id,LocX,LocY,LocZ, current, watts,temperature,time)
     VALUES ('".$dv->device_id."', '"
+    .$locX."', '"
+    .$locY."', '"
+    .$locZ."', '"
     .$dv->current."', '"
     .$dv->watts."', '"
     .$dv->temperature."', '"
