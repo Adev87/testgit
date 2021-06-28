@@ -5,57 +5,9 @@
       
      $mysqli = new mysqli($servername,$username,$password);
      // get_list_devices($mysqli);
-     $mysqli = new mysqli($servername,$username,$password);
-      //get_list_devices($mysqli);
-      $sql = "
-      CREATE DATABASE `Electrical_IoT`CHARACTER SET utf8 COLLATE utf8_bin; 
-       ";
-      run_query($mysqli,$sql);
-      $sql = "
-      CREATE DATABASE `Water_IoT`CHARACTER SET utf8 COLLATE utf8_bin; 
-       ";
-      run_query($mysqli,$sql);
-      $sql=" CREATE DATABASE `WasteMgt`CHARACTER SET utf8 COLLATE utf8_bin; 
-      ";
-     
-      run_query($mysqli,$sql);
-      $sql = "USE Electrical_IoT;";
-      run_query($mysqli,$sql);
-      $sql = "USE Electrical_IoT;
-      CREATE TABLE `electrical_iot`.`Device` ( `id` INT NOT NULL AUTO_INCREMENT, `mac` VARCHAR(20), `devicename` VARCHAR(50), `devicenickname` VARCHAR(50)
-      , PRIMARY KEY (`id`)     
-      )
-
-      CHARSET=utf8 COLLATE=utf8_bin; 
-      CREATE TABLE `electrical_iot`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, `device_id` INT, `LocX` INT, `LocY` INT, `LocZ` INT, `current` DOUBLE, `watts` DOUBLE, `temperature` DOUBLE, `time` VARCHAR(50), PRIMARY KEY (`id`) , 
-      KEY `device_id` (`device_id`) , FULLTEXT INDEX `time` (`time`) ); 
-      ";
-      run_query($mysqli,$sql);
-    
-      $sql = "USE Water_IoT;
-      CREATE TABLE `Water_IoT`.`Device` ( `id` INT NOT NULL AUTO_INCREMENT, 
-      `sensor_id` VARCHAR(20)
-      , `devicename` VARCHAR(50), 
-      `devicenickname` VARCHAR(50),
-       PRIMARY KEY (`id`) 
-        ) CHARSET=utf8 COLLATE=utf8_bin; 
-      CREATE TABLE `Water_IoT`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, 
-      `device_id` INT, `LocX` INT, `LocY` INT, `LocZ` INT, `current` DOUBLE, `watts` DOUBLE, `temperature` DOUBLE, `time` VARCHAR(50), PRIMARY KEY (`id`) , 
-      KEY `device_id` (`device_id`) , FULLTEXT INDEX `time` (`time`) ); 
-      ";
-      run_query($mysqli,$sql);
-     
-      $sql = "USE WasteMgt;
-   
-      CREATE TABLE `WasteMgt`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, 
-      `AgentID` VARCHAR(20),
-      `LocX` INT, 
-      `LocY` INT, `LocZ` INT, 
-      `weight` DOUBLE, 
-      `time` VARCHAR(50)
-      , PRIMARY KEY (`id`) , 
-      KEY `AgentID` (`AgentID`) , FULLTEXT INDEX `time` (`time`) ); 
-      ";
+      $sql = "DROP DATABASE electrical_iot;
+DROP DATABASE wastemgt;
+DROP DATABASE water_iot; ";
       run_query($mysqli,$sql);
      $mysqli->close();
     
