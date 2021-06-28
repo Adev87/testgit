@@ -3,30 +3,71 @@
       $password = "W0rld3xp0@dm1n";
       //$password = "";
       
-     $mysqli = new mysqli($servername,$username,$password,"Electronics");
+     $mysqli = new mysqli($servername,$username,$password);
      // get_list_devices($mysqli);
-     $sql = "
-      USE  Electronics;
-      DROP TABLE device_history;
-      DROP TABLE devices;
-      DROP DATABASE electronics;
-      ";
-      
-      if ($mysqli->multi_query($sql) === TRUE) {
-        echo "table dropped<br>";
-      } else {
-        echo "Error: " . $sql . "<br>" . $mysqli->error;
-      }
+     $mysqli = new mysqli($servername,$username,$password);
+      //get_list_devices($mysqli);
       $sql = "
-      
-      DROP DATABASE electronics;
+      CREATE DATABASE `Electrical_IoT`CHARACTER SET utf8 COLLATE utf8_bin; 
+       ";
+      run_query($mysqli,$sql);
+      $sql = "
+      CREATE DATABASE `Water_IoT`CHARACTER SET utf8 COLLATE utf8_bin; 
+       ";
+      run_query($mysqli,$sql);
+      $sql=" CREATE DATABASE `WasteMgt`CHARACTER SET utf8 COLLATE utf8_bin; 
       ";
-      
-      if ($mysqli->multi_query($sql) === TRUE) {
-        echo "table dropped<br>";
-      } else {
-        echo "Error: " . $sql . "<br>" . $mysqli->error;
-      }    
+     
+      run_query($mysqli,$sql);
+      $sql = "USE Electrical_IoT;";
+      run_query($mysqli,$sql);
+      $sql = "USE Electrical_IoT;
+      CREATE TABLE `electrical_iot`.`Device` ( `id` INT NOT NULL AUTO_INCREMENT, `mac` VARCHAR(20), `devicename` VARCHAR(50), `devicenickname` VARCHAR(50)
+      , PRIMARY KEY (`id`)     
+      )
+
+      CHARSET=utf8 COLLATE=utf8_bin; 
+      CREATE TABLE `electrical_iot`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, `device_id` INT, `LocX` INT, `LocY` INT, `LocZ` INT, `current` DOUBLE, `watts` DOUBLE, `temperature` DOUBLE, `time` VARCHAR(50), PRIMARY KEY (`id`) , 
+      KEY `device_id` (`device_id`) , FULLTEXT INDEX `time` (`time`) ); 
+      ";
+      run_query($mysqli,$sql);
+    
+      $sql = "USE Water_IoT;
+      CREATE TABLE `Water_IoT`.`Device` ( `id` INT NOT NULL AUTO_INCREMENT, 
+      `sensor_id` VARCHAR(20)
+      , `devicename` VARCHAR(50), 
+      `devicenickname` VARCHAR(50),
+       PRIMARY KEY (`id`) 
+        ) CHARSET=utf8 COLLATE=utf8_bin; 
+      CREATE TABLE `Water_IoT`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, 
+      `device_id` INT, `LocX` INT, `LocY` INT, `LocZ` INT, `current` DOUBLE, `watts` DOUBLE, `temperature` DOUBLE, `time` VARCHAR(50), PRIMARY KEY (`id`) , 
+      KEY `device_id` (`device_id`) , FULLTEXT INDEX `time` (`time`) ); 
+      ";
+      run_query($mysqli,$sql);
+     
+      $sql = "USE WasteMgt;
+   
+      CREATE TABLE `WasteMgt`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, 
+      `AgentID` VARCHAR(20),
+      `LocX` INT, 
+      `LocY` INT, `LocZ` INT, 
+      `weight` DOUBLE, 
+      `time` VARCHAR(50)
+      , PRIMARY KEY (`id`) , 
+      KEY `AgentID` (`AgentID`) , FULLTEXT INDEX `time` (`time`) ); 
+      ";
+      run_query($mysqli,$sql);
+     $mysqli->close();
+    
+  function run_query($mysqli,$sql)
+  {
+    if ($mysqli->multi_query($sql) === TRUE) {
+      echo "table dropped<br>";
+      while ($mysqli->next_result());
+    } else {
+      echo "Error: " . $sql . "<br>" . $mysqli->error;
+    }
+  }
      $mysqli->close();
     
     
