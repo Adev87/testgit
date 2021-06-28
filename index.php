@@ -4,8 +4,29 @@
       //$password = "";
       
      $mysqli = new mysqli($servername,$username,$password,"Electronics");
-      get_list_devices($mysqli);
+     // get_list_devices($mysqli);
+     $sql = "
+      USE  Electronics;
+      DROP TABLE device_history;
+      DROP TABLE devices;
+      DROP DATABASE electronics;
+      ";
       
+      if ($mysqli->multi_query($sql) === TRUE) {
+        echo "table dropped<br>";
+      } else {
+        echo "Error: " . $sql . "<br>" . $mysqli->error;
+      }
+      $sql = "
+      
+      DROP DATABASE electronics;
+      ";
+      
+      if ($mysqli->multi_query($sql) === TRUE) {
+        echo "table dropped<br>";
+      } else {
+        echo "Error: " . $sql . "<br>" . $mysqli->error;
+      }    
      $mysqli->close();
     
     
