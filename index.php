@@ -30,7 +30,7 @@ $servername = "localhost";
     $id = get_device_id_from_mac($conn,$dv->address);
     if ($id<=0)
     {
-      $sql = "INSERT INTO devices (mac, devicename,devicenickname)
+      $sql = "INSERT INTO Device (mac, devicename,devicenickname)
     VALUES ('".$dv->address."', '"
     .$dv->devicename."', '"
     .$dv->devicenickname."')";
@@ -93,7 +93,7 @@ $servername = "localhost";
     $dv->lastUpdated = str_replace(".000Z","",$dv->lastUpdated);
     $dv->lastUpdated = date("Y-m-d H:i:s", strtotime($dv->lastUpdated));
     
-    $sql = "select * from device_history where device_id='".$dv->device_id."' and time='".$dv->lastUpdated."'";
+    $sql = "select * from Device_Data where device_id='".$dv->device_id."' and time='".$dv->lastUpdated."'";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
@@ -134,7 +134,7 @@ $servername = "localhost";
     $locY=44;
     $locZ=44;
         }
-    $sql = "INSERT INTO device_history (device_id,LocX,LocY,LocZ, current, watts,temperature,time)
+    $sql = "INSERT INTO Device_Data (device_id,LocX,LocY,LocZ, current, watts,temperature,time)
     VALUES ('".$dv->device_id."', '"
     .$locX."', '"
     .$locY."', '"
