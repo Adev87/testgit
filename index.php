@@ -3,7 +3,7 @@ $servername = "localhost";
       $password = "W0rld3xp0@dm1n";
       //$password = "";
       
-     $mysqli = new mysqli($servername,$username,$password);
+     $mysqli = new mysqli($servername,$username,$password,"Electrical_IoT");
       get_list_devices($mysqli);
      
      $mysqli->close();
@@ -75,7 +75,7 @@ $servername = "localhost";
   }
   function get_device_id_from_mac($conn,$address)
   {
-    $sql = "select * from devices where mac='".$address."'";
+    $sql = "select * from Device where mac='".$address."'";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
