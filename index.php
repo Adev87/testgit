@@ -19,12 +19,12 @@ $servername = "localhost";
       $sql = "USE Electrical_IoT;";
       run_query($mysqli,$sql);
       $sql = "USE Electrical_IoT;
-      CREATE TABLE `electrical_iot`.`Device` ( `id` INT NOT NULL AUTO_INCREMENT, `mac` VARCHAR(20), `devicename` VARCHAR(50), `devicenickname` VARCHAR(50)
+      CREATE TABLE `Electrical_IoT`.`Device` ( `id` INT NOT NULL AUTO_INCREMENT, `mac` VARCHAR(20), `devicename` VARCHAR(50), `devicenickname` VARCHAR(50)
       , PRIMARY KEY (`id`)     
       )
 
       CHARSET=utf8 COLLATE=utf8_bin; 
-      CREATE TABLE `electrical_iot`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, `device_id` INT,
+      CREATE TABLE `Electrical_IoT`.`Device_Data` ( `id` INT NOT NULL AUTO_INCREMENT, `device_id` INT,
        `LocX` DOUBLE, `LocY` DOUBLE, `LocZ` DOUBLE, `current` DOUBLE, `watts` DOUBLE, `temperature` DOUBLE, `time` VARCHAR(50), PRIMARY KEY (`id`) , 
       KEY `device_id` (`device_id`) , FULLTEXT INDEX `time` (`time`) ); 
       ";
@@ -88,6 +88,11 @@ $servername = "localhost";
       run_query($mysqli,$sql);
       
       } else {
+        $sql = "DROP DATABASE Electrical_IoT;
+        DROP DATABASE Water_IoT;
+        DROP DATABASE WasteMgt;
+        ";
+        run_query($mysqli,$sql);
         echo "Error: " . $sql . "<br>" . $mysqli->error;
       }
      $mysqli->close();
