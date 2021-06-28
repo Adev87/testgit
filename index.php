@@ -1,4 +1,4 @@
-      $servername = "localhost";
+$servername = "localhost";
       $username = "root";
       $password = "W0rld3xp0@dm1n";
       //$password = "";
@@ -74,15 +74,15 @@
       
       ";
       run_query($mysqli,$sql);
-      $sql = "INSERT INTO `wastemgt`.`device_data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
+      $sql = "INSERT INTO `WasteMgt`.`Device_Data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
       VALUES  ('G002','11','11','11','100', '2021-06-09 11:06:12');
-      INSERT INTO `wastemgt`.`device_data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
+      INSERT INTO `WasteMgt`.`Device_Data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
       VALUES  ('G003','12','12','12','200', '2021-06-08 12:01:11');
-      INSERT INTO `wastemgt`.`device_data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
+      INSERT INTO `WasteMgt`.`Device_Data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
       VALUES  ('G004','13','13','13','300', '2021-06-11 01:16:12');
-      INSERT INTO `wastemgt`.`device_data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
+      INSERT INTO `WasteMgt`.`Device_Data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
       VALUES  ('G005','14','14','14','400', '2021-06-012 12:12:12');
-      INSERT INTO `wastemgt`.`device_data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
+      INSERT INTO `WasteMgt`.`Device_Data` (`AgentID`,`LocX`,`LocY`,`LocZ`,`weight`, `time`) 
       VALUES  ('G006','15','15','15','500', '2021-06-15 11:06:12');
       ";
       run_query($mysqli,$sql);
