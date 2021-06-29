@@ -4,11 +4,10 @@ $servername = "localhost";
       //$password = "";
       
      $mysqli = new mysqli($servername,$username,$password);
-     // get_list_devices($mysqli);
-     $sql = "DROP DATABASE `Water_IoT`; ";
-      if ($mysqli->query($sql) === TRUE) {
-        echo "Creating DB";
-      
+     $sql = "
+      CREATE DATABASE `Water_IoT`CHARACTER SET utf8 COLLATE utf8_bin; 
+       ";
+      run_query($mysqli,$sql);
       $sql = "USE Water_IoT;
       CREATE TABLE `Water_IoT`.`Device` ( `id` INT NOT NULL AUTO_INCREMENT,
       `mac` VARCHAR(20),
@@ -42,11 +41,6 @@ $servername = "localhost";
       ";
       run_query($mysqli,$sql);
      
-      
-      } else {
-   
-        echo "Error: " . $sql . "<br>" . $mysqli->error;
-      }
      $mysqli->close();
     
   function run_query($mysqli,$sql)
